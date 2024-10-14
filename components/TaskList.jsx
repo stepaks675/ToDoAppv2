@@ -2,7 +2,7 @@ import Tasks from "./Tasks"
 import Filter from "./Filter"
 import Search from "./Search"
 import { useState } from "react"
-export default function TaskList({tasks, onComplete, date, onExpire}){
+export default function TaskList({tasks, onComplete, date, onExpire, onDelete}){
     const [filter, setFilter] = useState({showDone: true, showExpired: true, showCurrent: true, text:""})
     const filteredTasks = tasks.filter(el => {
         if (!filter.showDone){
@@ -33,7 +33,7 @@ export default function TaskList({tasks, onComplete, date, onExpire}){
                 </div>
                 
             </div>
-            <Tasks tasks={filteredTasks} onComplete={onComplete} date={date} onExpire={onExpire}/>
+            <Tasks tasks={filteredTasks} onComplete={onComplete} onDelete={onDelete} date={date} onExpire={onExpire}/>
         </div>
     )
 }
