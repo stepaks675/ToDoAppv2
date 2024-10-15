@@ -11,6 +11,7 @@ export default function Timer({ keyTime, currTime, isCompleted, onExpire, id, is
   let formatted = duration.isValid
     ? duration.toFormat("d 'дн.' h 'ч.' m 'мин.'")
     : "Expired";
+    
   useEffect(()=>{if (formatted == "Expired" && !isExpired) {onExpire(id)}},[currTime])
   
   let danger = 0;
