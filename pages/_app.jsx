@@ -1,9 +1,14 @@
-import "../styles/global.css"
+import "../styles/global.css";
+import { Provider } from "react-redux";
+import store from "../store/store";
 function MyApp({ Component, pageProps }) {
+  return (
+    <Provider store={store}>
+      <div className="text-slate-600 font-mono">
+        <Component {...pageProps} />
+      </div>
+    </Provider>
+  );
+}
 
-    return <div className="text-slate-600 font-mono">
-    <Component {...pageProps} />
-    </div>
-  }
-  
-  export default MyApp;
+export default MyApp;

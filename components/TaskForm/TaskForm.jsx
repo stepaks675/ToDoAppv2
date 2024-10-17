@@ -1,19 +1,27 @@
 import { useState } from "react";
-export default function TaskForm({ onCreate }) {
+import { useDispatch } from "react-redux";
+import { addTask } from "../../store/slices/todoSlice";
+export const TaskForm = () => {
+
+  const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [date, setDate] = useState("");
   const [checked, setChecked] = useState(false)
+
   function handleText(event) {
     setText(event.target.value);
   }
+  
   function handleDate(event) {
     setChecked(false);
     setDate(event.target.value);
   }
+
   function handleClear() {
     setText("");
     setDate("");
   }
+
   function handleVal() {
     setChecked(prev=>!prev)
     setDate(Date.now() + 100000000000);
@@ -43,7 +51,7 @@ export default function TaskForm({ onCreate }) {
           <button
             className="w-min h-full px-2 py-1 text-xl border text-slate-700 border-slate-300 bg-green-300 rounded-xl hover:bg-green-200 hover:border-slate-400 transition-colors"
             onClick={() => {
-              onCreate(text, date);
+              dispatch(addTask({desc: text, deadline: date}));
             }}
           >
             Создать

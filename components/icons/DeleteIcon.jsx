@@ -1,8 +1,13 @@
-export default function DeleteIcon({ className, onDelete, id }) {
+import { useDispatch } from "react-redux";
+import { deleteTask } from "../../store/slices/todoSlice";
+export default function DeleteIcon({ className, id }) {
+  const dispatch = useDispatch();
   return (
     <svg
-    className={className}
-    onClick={()=>{onDelete(id)}}
+      className={className}
+      onClick={() => {
+        dispatch(deleteTask({ id }));
+      }}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 315 315"
