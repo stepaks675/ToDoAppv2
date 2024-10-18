@@ -52,6 +52,7 @@ export const TaskForm = () => {
             className="w-min h-full px-2 py-1 text-xl border text-slate-700 border-slate-300 bg-green-300 rounded-xl hover:bg-green-200 hover:border-slate-400 transition-colors"
             onClick={() => {
               dispatch(addTask({desc: text, deadline: date}));
+              
             }}
           >
             Создать

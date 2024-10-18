@@ -1,9 +1,12 @@
 import { TaskList } from "../components/TaskList";
 import { TaskForm } from "../components/TaskForm";
+
 import { useEffect } from "react";
+
+
 import { useDispatch} from "react-redux";
-import { updateTime } from "../store/slices/timerSlice";
-import { setTasks } from "../store/slices/todoSlice";
+import { updateTime  } from "../store/slices/timerSlice";
+import { fetchTasks } from "../store/slices/todoSlice";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -16,9 +19,8 @@ export default function Main() {
     };
   }, [dispatch]);
 
-  useEffect(()=>{
-    const tasks = JSON.parse(localStorage.getItem("tasks"))
-    dispatch(setTasks({tasks}))
+  useEffect(async ()=>{
+    dispatch(fetchTasks())
   },[])
 
   return (
