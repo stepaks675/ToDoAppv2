@@ -3,11 +3,13 @@ import { Filter, Order, Search } from "./Nav";
 
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import Loading from "../icons/Loading";
 
 
 export const TaskList = () => {
   const hasMounted = useRef(false);
   const tasks = useSelector(state => state.todo.tasks)
+  const status = useSelector(state => state.todo.status)
   console.log(tasks)
   const [filter, setFilter] = useState({
     showDone: true,
@@ -74,7 +76,7 @@ export const TaskList = () => {
           </Filter>
         </div>
       </div>
-      <Tasks tasks={filteredTasks} />
+      {status=="pending" ? <Loading/> : <Tasks tasks={filteredTasks} /> }
     </div>
   );
 };

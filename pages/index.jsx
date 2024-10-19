@@ -4,12 +4,13 @@ import { TaskForm } from "../components/TaskForm";
 import { useEffect } from "react";
 
 
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { updateTime  } from "../store/slices/timerSlice";
 import { fetchTasks } from "../store/slices/todoSlice";
 
 export default function Main() {
   const dispatch = useDispatch();
+  
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(updateTime());
@@ -19,9 +20,11 @@ export default function Main() {
     };
   }, [dispatch]);
 
-  useEffect(async ()=>{
-    dispatch(fetchTasks())
+  useEffect(()=>{
+    async function fetchData(){dispatch(fetchTasks())}
+    fetchData()
   },[])
+
 
   return (
     <div className="h-svh bg-gradient-to-tr from-green-100 to-blue-100 flex items-center justify-center">

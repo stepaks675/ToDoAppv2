@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTask } from "../../store/slices/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncAddTask } from "../../store/slices/todoSlice";
 export const TaskForm = () => {
-
   const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.todo.tasks);
   const [text, setText] = useState("");
   const [date, setDate] = useState("");
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
 
   function handleText(event) {
     setText(event.target.value);
   }
-  
+
   function handleDate(event) {
     setChecked(false);
     setDate(event.target.value);
@@ -23,7 +23,7 @@ export const TaskForm = () => {
   }
 
   function handleVal() {
-    setChecked(prev=>!prev)
+    setChecked((prev) => !prev);
     setDate(Date.now() + 100000000000);
   }
   return (
@@ -43,7 +43,11 @@ export const TaskForm = () => {
             onChange={handleDate}
           ></input>
           <div className="w-max flex items-center gap-1">
-            <input type="checkbox" checked={checked} onChange={handleVal}></input>
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={handleVal}
+            ></input>
             <span>Дедлайн не нужен</span>
           </div>
         </div>
@@ -51,8 +55,15 @@ export const TaskForm = () => {
           <button
             className="w-min h-full px-2 py-1 text-xl border text-slate-700 border-slate-300 bg-green-300 rounded-xl hover:bg-green-200 hover:border-slate-400 transition-colors"
             onClick={() => {
-              dispatch(addTask({desc: text, deadline: date}));
-              
+              dispatch(
+                asyncAddTask({
+                  desc: text,
+                  deadline: new Date(
+                    date || Date.now() + 1000 * 60 * 60
+                  ).getTime(),
+                  id: Math.max(...tasks.map((item) => item.id + 1), 1),
+                })
+              );
             }}
           >
             Создать
@@ -67,4 +78,4 @@ export const TaskForm = () => {
       </div>
     </div>
   );
-}
+};

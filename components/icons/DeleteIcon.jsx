@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { deleteTask } from "../../store/slices/todoSlice";
+import { asyncRemoveTask } from "../../store/slices/todoSlice";
 export default function DeleteIcon({ className, id }) {
   const dispatch = useDispatch();
   return (
     <svg
       className={className}
       onClick={() => {
-        dispatch(deleteTask({ id }));
+        dispatch((asyncRemoveTask(id)));
       }}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"

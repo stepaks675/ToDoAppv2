@@ -2,7 +2,7 @@ import { Interval, DateTime } from "luxon";
 import { useEffect } from "react";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
-import { expireTask } from "../../../store/slices/todoSlice";
+import { asyncExpire } from "../../../store/slices/todoSlice";
 export const Timer = ({ keyTime,  isCompleted, id, isExpired }) => {
   //получает таймстемпы текущего времени и целевого, возвращает разницу в виде день час минута
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const Timer = ({ keyTime,  isCompleted, id, isExpired }) => {
   let formatted = duration.isValid ? duration.toFormat("d 'дн.' h 'ч.' m 'мин.'") : "Expired";
     
   useEffect(()=>{
-    if (formatted == "Expired" && !isExpired) dispatch(expireTask({id}))
+    if (formatted == "Expired" && !isExpired) dispatch(asyncExpire(id))
   },[time])
 
   let danger = 0;
