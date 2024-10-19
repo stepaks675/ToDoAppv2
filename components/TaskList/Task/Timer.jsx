@@ -1,19 +1,25 @@
 import { Interval, DateTime } from "luxon";
 import { useEffect } from "react";
 import clsx from "clsx";
-export default function Timer({ keyTime, currTime, isCompleted, onExpire, id, isExpired }) {
+import { useDispatch, useSelector } from "react-redux";
+import { asyncExpire } from "../../../store/slices/todoSlice";
+export const Timer = ({ keyTime,  isCompleted, id, isExpired }) => {
   //получает таймстемпы текущего времени и целевого, возвращает разницу в виде день час минута
+  const dispatch = useDispatch();
+  const time = useSelector(state => state.timer.timestamp)
 
-  const start = DateTime.fromMillis(currTime);
+  const start = DateTime.fromMillis(time);
   const end = DateTime.fromMillis(keyTime);
+
   const interval = Interval.fromDateTimes(start, end);
   const duration = interval.toDuration(["days", "hours", "minutes"]);
-  let formatted = duration.isValid
-    ? duration.toFormat("d 'дн.' h 'ч.' m 'мин.'")
-    : "Expired";
+
+  let formatted = duration.isValid ? duration.toFormat("d 'дн.' h 'ч.' m 'мин.'") : "Expired";
     
-  useEffect(()=>{if (formatted == "Expired" && !isExpired) {onExpire(id)}},[currTime])
-  
+  useEffect(()=>{
+    if (formatted == "Expired" && !isExpired) dispatch(asyncExpire(id))
+  },[time])
+
   let danger = 0;
   if (interval.isValid) {
     if (interval.length("day") < 5) danger = 1;

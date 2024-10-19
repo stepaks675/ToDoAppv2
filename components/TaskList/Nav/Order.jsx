@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import ChangeOrderIcon from "./icons/ChangeOrderIcon";
-export default function Order({ setFilter }) {
+import ChangeOrderIcon from "../../icons/ChangeOrderIcon";
+export const Order = ({ setFilter }) => {
   const [isReverse, setIsReverse] = useState(false);
   useEffect(() => {
     setFilter((prev) => {
@@ -9,7 +9,7 @@ export default function Order({ setFilter }) {
   }, [isReverse]);
   return (
     <>
-      <span className="pl-1 w-48 overflow-hidden">
+      <span className="pl-1 w-48 overflow-hidden text-center">
         {isReverse ? "удалению дедлайна" : "приближению дедлайна"}
       </span>
       <ChangeOrderIcon

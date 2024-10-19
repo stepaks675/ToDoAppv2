@@ -1,7 +1,6 @@
-import SearchIcon from "./icons/SearchIcon";
-
+import SearchIcon from "../../icons/SearchIcon";
 import { useState, useEffect } from "react";
-export default function Search({ setFilter }) {
+export const Search = ({ setFilter }) => {
   const [text, setText] = useState("");
   function handleClick() {
     setFilter((prev) => {
@@ -23,7 +22,7 @@ export default function Search({ setFilter }) {
         }}
         placeholder="Поиск по задаче"
       />
-      <SearchIcon classNameInfo={"w-6 hover:scale-110 transition-all"}/>
+      <SearchIcon classNameInfo={"w-6 hover:scale-110 transition-all"} />
     </div>
   );
 }
