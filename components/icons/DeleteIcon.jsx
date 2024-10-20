@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { asyncRemoveTask } from "../../store/slices/todoSlice";
+import { asyncRemoveTask } from "../../service/store/slices/todoSlice";
 export default function DeleteIcon({ className, id }) {
   const dispatch = useDispatch();
   return (

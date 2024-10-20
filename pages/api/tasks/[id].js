@@ -1,4 +1,4 @@
-import { Task, dbConnect } from "../../../lib/mongoose";
+import { Task, dbConnect } from "../../../service/lib/mongoose";
 export default async function handler(req,res){
     await dbConnect();
     const option = req.query.id;

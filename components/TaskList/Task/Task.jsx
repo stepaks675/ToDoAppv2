@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 
 import { useDispatch} from "react-redux";
-import {asyncToggleCompleted } from "../../../store/slices/todoSlice";
+import {asyncToggleCompleted } from "../../../service/store/slices/todoSlice";
 export const Task = ({ task }) => {
   return (
     <TaskContainer isCompleted={task.isCompleted} isExpired={task.isExpired}>
