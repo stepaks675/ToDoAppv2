@@ -1,10 +1,9 @@
 import DeleteIcon from "../../icons/DeleteIcon";
-import {Timer} from "./Timer";
+import { Timer } from "./Timer";
 import clsx from "clsx";
 
-
-import { useDispatch} from "react-redux";
-import {asyncToggleCompleted } from "../../../store/slices/todoSlice";
+import { useDispatch } from "react-redux";
+import { asyncToggleCompleted } from "../../../service/store/slices/todoSlice";
 export const Task = ({ task }) => {
   return (
     <TaskContainer isCompleted={task.isCompleted} isExpired={task.isExpired}>
@@ -14,15 +13,14 @@ export const Task = ({ task }) => {
       />
       <TaskCheckBox isCompleted={task.isCompleted} id={task.id} />
       <TaskBody task={task} />
-      
     </TaskContainer>
   );
-}
+};
 
 const TaskCheckBox = ({ isCompleted, id }) => {
   const dispatch = useDispatch();
   const handleCheck = () => {
-    dispatch(asyncToggleCompleted( id ));
+    dispatch(asyncToggleCompleted(id));
   };
   return (
     <div className="mr-3 flex items-center">

@@ -1,31 +1,6 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { asyncAddTask } from "../../store/slices/todoSlice";
+import { useTaskForm } from "../../service/hooks";
 export const TaskForm = () => {
-  const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.todo.tasks);
-  const [text, setText] = useState("");
-  const [date, setDate] = useState("");
-  const [checked, setChecked] = useState(false);
-
-  function handleText(event) {
-    setText(event.target.value);
-  }
-
-  function handleDate(event) {
-    setChecked(false);
-    setDate(event.target.value);
-  }
-
-  function handleClear() {
-    setText("");
-    setDate("");
-  }
-
-  function handleVal() {
-    setChecked((prev) => !prev);
-    setDate(Date.now() + 100000000000);
-  }
+  const {text, date, checked, handleText, handleDate, handleVal, handleClear, handleCreate} = useTaskForm();
   return (
     <div className="flex items-center px-3 w-1/3 h-full ">
       <div className="flex items-center flex-col w-full h-1/2 border rounded-lg border-slate-300 p-3">
@@ -55,15 +30,7 @@ export const TaskForm = () => {
           <button
             className="w-min h-full px-2 py-1 text-xl border text-slate-700 border-slate-300 bg-green-300 rounded-xl hover:bg-green-200 hover:border-slate-400 transition-colors"
             onClick={() => {
-              dispatch(
-                asyncAddTask({
-                  desc: text,
-                  deadline: new Date(
-                    date || Date.now() + 1000 * 60 * 60
-                  ).getTime(),
-                  id: Math.max(...tasks.map((item) => item.id + 1), 1),
-                })
-              );
+              handleCreate()
             }}
           >
             Создать

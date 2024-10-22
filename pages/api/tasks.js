@@ -1,4 +1,4 @@
-import { dbConnect, Task } from "../../lib/mongoose";
+import { dbConnect, Task } from "../../service/lib/mongoose";
 
 export default async function handler(req, res) {
   await dbConnect();
